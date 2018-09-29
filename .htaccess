@@ -1,0 +1,14 @@
+# Iniciamos toda la mierda
+RewriteEngine on
+
+# Para evitar que vean los directorios, no nos interesa papu, somos seguros
+Options -Indexes
+
+# Esto es para que no se use el .php, en lugar de /home.php sería /home creo que queda más bonito :c
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME}.php -f
+RewriteRule ^(.*)$ $1.php
+
+# Y aquí si usas el .php te tira 404, para evitar ataques y cosas raras y know papu
+RewriteCond %{THE_REQUEST} "^[^ ]* .*?\.php[? ].*$"
+RewriteRule .* - [L,R=404]
